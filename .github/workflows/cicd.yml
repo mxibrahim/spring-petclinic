@@ -34,3 +34,18 @@ jobs:
 
     - name: Log out from Docker Hub
       run: docker logout
+
+    - name: Set up SSH for Ansible
+      uses: webfactory/ssh-agent@v0.5.3
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+    - name: Install Ansible
+      run: sudo apt-get update && sudo apt-get install -y ansible
+
+    - name: Run Ansible Playbook
+      env:
+        SHORT_SHA: ${{ env.SHORT_SHA }}
+      run: |
+        cd infra/ansible/
+        ansible-playbook -i 00-inventory.yaml 06-deploy-petclinic.yaml

@@ -1,0 +1,23 @@
+---
+- name: Deploy Petclinic
+  hosts: servers
+  become: yes
+
+  vars:
+    image_tag: "{{ lookup('env', 'SHORT_SHA') }}"
+  tasks:
+    - name: Copy Docker Compose file to server
+      ansible.builtin.copy:
+        src: ../../docker-compose.yml
+        dest: /home/apps/spring-petclinic/docker-compose.yml
+
+    - name: Update Docker image tag in Docker Compose file
+      ansible.builtin.replace:
+        path: /home/apps/spring-petclinic/docker-compose.yml
+        regexp: 'image: maulanaibrahim/spring-petclinic:latest'
+        replace: 'image: maulanaibrahim/spring-petclinic:{{ image_tag }}'
+
+    - name: Run Docker Compose to apply changes
+      ansible.builtin.shell: docker-compose up -d
+      args:
+        chdir: /home/apps/spring-petclinic

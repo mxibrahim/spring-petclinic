@@ -1,0 +1,21 @@
+version: '3.7'
+services:
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - 127.0.0.1:3000:3000
+    environment:
+      - GF_SECURITY_ADMIN_USER=${GRAFANA_USER}
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
+    volumes:
+      - grafana-data:/var/lib/grafana
+    networks:
+      - main-network
+    restart: always
+volumes:
+  grafana-data:
+    name: grafana-data
+networks:
+  main-network:
+    external: true

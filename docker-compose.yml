@@ -5,8 +5,13 @@ services:
     image: maulanaibrahim/spring-petclinic:latest
     container_name: spring-petclinic
     ports:
-      - "8080:8080"
+      - 127.0.0.1:8080:8080
     environment:
       - POSTGRES_URL=${POSTGRES_URL}
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASS=${POSTGRES_PASS}
+    networks:
+      - main-network
+networks:
+  main-network:
+    external: true

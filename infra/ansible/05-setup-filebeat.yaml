@@ -1,0 +1,84 @@
+---
+- name: Configure Filebeat to stream Nginx logs to Logstash
+  hosts: all
+  become: true
+  vars:
+    filebeat_url: "https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-8.15.1-linux-x86_64.tar.gz"
+    filebeat_install_dir: "/usr/local/filebeat"
+    logstash_host: "127.0.0.1"
+    logstash_port: 5044
+
+  tasks:
+    - name: Create installation directory for Filebeat
+      file:
+        path: "{{ filebeat_install_dir }}"
+        state: directory
+
+    - name: Download Filebeat
+      get_url:
+        url: "{{ filebeat_url }}"
+        dest: "/tmp/filebeat.tar.gz"
+
+    - name: Extract Filebeat directly to installation directory
+      unarchive:
+        src: "/tmp/filebeat.tar.gz"
+        dest: "{{ filebeat_install_dir }}"
+        remote_src: yes
+        extra_opts: [--strip-components=1]
+
+    - name: Configure Filebeat for Nginx logs
+      copy:
+        dest: "{{ filebeat_install_dir }}/filebeat.yml"
+        content: |
+          filebeat.inputs:
+            - type: log
+              enabled: true
+              paths:
+                - '/var/log/nginx/*.log'
+                - '/var/lib/docker/containers/container_id/container_id-json.log' #changeme
+          
+          filebeat.config.modules:
+            path: "{{ filebeat_install_dir }}/modules.d/*.yml"
+          
+          output.logstash:
+            hosts: ["{{ logstash_host }}:{{ logstash_port }}"]
+
+    - name: Create Nginx module configuration file
+      copy:
+        dest: "{{ filebeat_install_dir }}/modules.d/nginx.yml"
+        content: |
+          - module: nginx
+            access:
+              enabled: true
+              var.paths: ["/var/log/nginx/*access.log"]
+            error:
+              enabled: true
+              var.paths: ["/var/log/nginx/*error.log"]
+
+    - name: Set up Filebeat service file
+      copy:
+        dest: /etc/systemd/system/filebeat.service
+        content: |
+          [Unit]
+          Description=Filebeat
+          After=network.target
+
+          [Service]
+          User=root
+          Group=root
+          Type=simple
+          ExecStart={{ filebeat_install_dir }}/filebeat -c {{ filebeat_install_dir }}/filebeat.yml -e
+          Restart=always
+
+          [Install]
+          WantedBy=multi-user.target
+
+    - name: Reload systemd to recognize the Filebeat service
+      systemd:
+        daemon_reload: yes
+
+    - name: Enable and start Filebeat service
+      systemd:
+        name: filebeat
+        enabled: yes
+        state: started

@@ -1,0 +1,42 @@
+---
+- name: Install Nginx and Deploy Configurations
+  hosts: all
+  become: yes
+
+  tasks:
+    # - name: Update apt cache
+    #   ansible.builtin.apt:
+    #     update_cache: yes
+
+    - name: Install Nginx
+      ansible.builtin.apt:
+        name: nginx
+        state: present
+
+    - name: Ensure Nginx is enabled and started
+      ansible.builtin.service:
+        name: nginx
+        state: started
+        enabled: yes
+
+    - name: Create directory for custom logs
+      ansible.builtin.file:
+        path: /var/log/nginx
+        state: directory
+        mode: '0755'
+        owner: www-data
+        group: www-data
+
+    - name: Copy Nginx configuration files to target hosts
+      ansible.builtin.copy:
+        src: ../nginx/
+        dest: /etc/nginx/conf.d/
+        mode: '0644'
+        owner: root
+        group: root
+
+  handlers:
+    - name: Restart Nginx
+      ansible.builtin.service:
+        name: nginx
+        state: restarted

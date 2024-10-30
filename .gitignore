@@ -45,3 +45,6 @@ out/
 _site/
 *.css
 !petclinic.css
+
+infra/terraform/.terraform*
+infra/terraform/terraform*

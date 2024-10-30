@@ -1,0 +1,20 @@
+---
+- name: Deploy Docker services
+  hosts: all
+  become: true
+  vars:
+    destination_path: "/home/apps"
+
+  tasks:
+    - name: Copy docker directory to remote host
+      copy:
+        src: ../docker/
+        dest: "{{ destination_path }}"
+        mode: '0755'
+        owner: root
+        group: root
+
+    - name: Execute init.sh script in /home/apps
+      command: ./init.sh
+      args:
+        chdir: "{{ destination_path }}"
