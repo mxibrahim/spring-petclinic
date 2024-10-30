@@ -12,6 +12,10 @@ RUN ./mvnw package
 # Use a lightweight JDK image to run the application
 FROM openjdk:17-jdk-slim
 
+ENV POSTGRES_URL=""
+ENV POSTGRES_USER=""
+ENV POSTGRES_PASS=""
+
 WORKDIR /app
 
 COPY --from=build /app/target/*.jar /app/app.jar

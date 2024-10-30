@@ -28,7 +28,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: .
-        tags: ${{ env.DOCKER_IMAGE }}:${{ env.SHORT_SHA }}
+        tags: ${{ env.DOCKER_IMAGE }}:${{ env.SHORT_SHA }}, ${{ env.DOCKER_IMAGE }}:latest
         push: true
         platforms: linux/amd64
 
