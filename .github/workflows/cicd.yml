@@ -46,6 +46,7 @@ jobs:
     - name: Run Ansible Playbook
       env:
         SHORT_SHA: ${{ env.SHORT_SHA }}
+        ANSIBLE_HOST_KEY_CHECKING: False
       run: |
         cd infra/ansible/
         ansible-playbook -i 00-inventory.yaml 06-deploy-petclinic.yaml
