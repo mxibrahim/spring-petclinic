@@ -18,7 +18,7 @@
     - `infra/docker/04-postgresql/`
 
 ## Release Process
-![Release Process](https://github.com/mxibrahim/spring-petclinic/blob/main/hijra_release_process.jpg?raw=true)
+![Release Process](https://github.com/mxibrahim/spring-petclinic/blob/main/hijra_release_process.png?raw=true)
 
 ---
 ## How to Setup
