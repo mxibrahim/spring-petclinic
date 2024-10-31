@@ -1,6 +1,6 @@
 ---
 - name: Configure Filebeat to stream Nginx logs to Logstash
-  hosts: all
+  hosts: servers
   become: true
   vars:
     filebeat_url: "https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-8.15.1-linux-x86_64.tar.gz"
@@ -35,7 +35,7 @@
               enabled: true
               paths:
                 - '/var/log/nginx/*.log'
-                - '/var/lib/docker/containers/container_id/container_id-json.log' #changeme
+                # - '/var/lib/docker/containers/<container_id>/<container_id>-json.log' #changeme
           
           filebeat.config.modules:
             path: "{{ filebeat_install_dir }}/modules.d/*.yml"

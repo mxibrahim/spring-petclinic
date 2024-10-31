@@ -1,6 +1,6 @@
 ---
 - name: Install Docker and Docker Compose
-  hosts: all
+  hosts: servers
   become: true
   tasks:
     - name: Install Dependencies

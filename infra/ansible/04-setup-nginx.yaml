@@ -1,6 +1,6 @@
 ---
 - name: Install Nginx and Deploy Configurations
-  hosts: all
+  hosts: servers
   become: yes
 
   tasks:

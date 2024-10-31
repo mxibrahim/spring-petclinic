@@ -1,6 +1,6 @@
 ---
 - name: Install Node Exporter
-  hosts: all
+  hosts: servers
   become: yes
 
   tasks:
