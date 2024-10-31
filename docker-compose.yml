@@ -6,6 +6,7 @@ services:
     container_name: spring-petclinic
     ports:
       - 127.0.0.1:8080:8080
+    restart: always
     environment:
       - POSTGRES_URL=${POSTGRES_URL}
       - POSTGRES_USER=${POSTGRES_USER}

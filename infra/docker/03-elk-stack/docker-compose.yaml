@@ -23,6 +23,7 @@ services:
       - elasticsearch-data:/usr/share/elasticsearch/data
     ports:
       - 127.0.0.1:9200:9200
+    restart: always
     environment:
       # The password for the 'elastic' user
       - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
@@ -58,6 +59,7 @@ services:
         /usr/share/logstash/bin/logstash -f /usr/share/logstash/pipeline/logstash.conf
     ports:
       - 127.0.0.1:5044:5044
+    restart: always
     environment:
       - xpack.monitoring.enabled=false
       - ELASTIC_USER=elastic
