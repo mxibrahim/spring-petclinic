@@ -13,7 +13,7 @@ module "server" {
   network         = "${var.codename}-network"
   external_ip     = true
   # vm_type         = "f1-micro"
-  vm_type         = "e2-medium"
+  vm_type         = "e2-standard-2"
   vm_image        = "ubuntu-os-cloud/ubuntu-2004-lts"
   disk_size       = 30
   disk_type       = "pd-standard"

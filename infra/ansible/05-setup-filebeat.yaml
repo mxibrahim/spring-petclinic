@@ -35,7 +35,8 @@
               enabled: true
               paths:
                 - '/var/log/nginx/*.log'
-                # - '/var/lib/docker/containers/<container_id>/<container_id>-json.log' #changeme
+                # - '/var/lib/docker/containers/*/*.log'
+                # - '/var/lib/docker/containers/<container_id>/<container_id>-json.log' # spesific container
           
           filebeat.config.modules:
             path: "{{ filebeat_install_dir }}/modules.d/*.yml"

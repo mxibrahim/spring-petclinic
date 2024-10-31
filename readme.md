@@ -76,10 +76,13 @@ gcloud compute instances describe hijra-server \
 
 #### Access: Petclinic App
 [http://petclinic.local](http://petclinic.local)
+![petclinic](https://github.com/mxibrahim/spring-petclinic/blob/main/petclinic.png?raw=true)
 
 #### Access: Grafana
 [http://grafana.local](http://grafana.local), import grafana from dashboard infra/docker/02-grafana/server-dashboard.json
+![grafana](https://github.com/mxibrahim/spring-petclinic/blob/main/grafana-vm-dasboard.png?raw=true)
 
 #### Access: Kibana
 [http://kibana.local](http://kibana.local)
+![kibana](https://github.com/mxibrahim/spring-petclinic/blob/main/kibana-logs.png?raw=true)
 
