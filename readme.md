@@ -17,8 +17,13 @@
 5. **PostgreSQL**: to store persistent data.
     - `infra/docker/04-postgresql/`
 
-## Release Process
-![Release Process](https://github.com/mxibrahim/spring-petclinic/blob/main/hijra_release_process.png?raw=true)
+## Architecture
+### Release Process
+![Release Process](https://github.com/mxibrahim/spring-petclinic/blob/main/infra/diagrams/release-process.png?raw=true)
+
+### Infrastructure Diagram
+![Infrastructure Diagram](https://github.com/mxibrahim/spring-petclinic/blob/main/infra/diagrams/infrastructure-diagram.png?raw=true)
+
 
 ---
 ## How to Setup
@@ -34,6 +39,7 @@
 ```
 GOOGLE_APPLICATION_CREDENTIALS=/path/to/service-account.json
 cd infra/terraform
+terraform init
 terraform plan # for check creates an execution plan
 terraform apply
 ```
@@ -76,13 +82,13 @@ gcloud compute instances describe hijra-server \
 
 #### Access: Petclinic App
 [http://petclinic.local](http://petclinic.local)
-![petclinic](https://github.com/mxibrahim/spring-petclinic/blob/main/petclinic.png?raw=true)
+![petclinic](https://github.com/mxibrahim/spring-petclinic/blob/main/infra/diagrams/petclinic.png?raw=true)
 
 #### Access: Grafana
 [http://grafana.local](http://grafana.local), import grafana from dashboard infra/docker/02-grafana/server-dashboard.json
-![grafana](https://github.com/mxibrahim/spring-petclinic/blob/main/grafana-vm-dasboard.png?raw=true)
+![grafana](https://github.com/mxibrahim/spring-petclinic/blob/main/infra/diagrams/grafana-vm-dasboard.png?raw=true)
 
 #### Access: Kibana
 [http://kibana.local](http://kibana.local)
-![kibana](https://github.com/mxibrahim/spring-petclinic/blob/main/kibana-logs.png?raw=true)
+![kibana](https://github.com/mxibrahim/spring-petclinic/blob/main/infra/diagrams/kibana-logs.png?raw=true)
 
